@@ -8,5 +8,9 @@ envelopeRouter.post('/', (req, res) => {
     res.status(201).send(newEnvelope);
 });
 
+envelopeRouter.get('/', (req, res) => {
+    res.send(envelopeManager.getEnvelopes());
+});
+
 
 module.exports = envelopeRouter;
