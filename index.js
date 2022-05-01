@@ -1,12 +1,10 @@
 const express = require('express');
-const router = express.Router();
 const app = express();
+const envelopeRouter = require('./server/routes/envelope_routes');
+const bodyParser = require('body-parser');
 
-router.get('/', (req, res, next) => {
-    res.send('Hello world!');
-});
-
-app.use(router);
+app.use(bodyParser.json());
+app.use('/envelopes', envelopeRouter);
 
 const PORT = process.env.PORT || 4001;
 
