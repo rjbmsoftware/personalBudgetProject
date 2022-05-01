@@ -12,5 +12,14 @@ envelopeRouter.get('/', (req, res) => {
     res.send(envelopeManager.getEnvelopes());
 });
 
+envelopeRouter.get('/:id', (req, res) => {
+    let envelope = envelopeManager.getEnvelopeById(req.params.id);
+    if (envelope) {
+        res.send(envelope);
+    } else {
+        res.status(404).send();
+    }
+});
+
 
 module.exports = envelopeRouter;
