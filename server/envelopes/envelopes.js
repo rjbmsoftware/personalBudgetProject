@@ -22,4 +22,38 @@ function addEnvelope(name, amount, description = "") {
     return newEnvelope;
 }
 
-module.exports = { getEnvelopes, addEnvelope, getEnvelopeById };
+/**
+ * Updates evelope and returns it if id is valid otherwise undefined 
+ * @param number id 
+ * @param string name 
+ * @param string amount 
+ * @param string description 
+ * @returns 
+ */
+function updateEnvelope(id, name, amount, description) {
+    let envelope = getEnvelopeById(id);
+    if (envelope) {
+        envelope.name = name;
+        envelope.amount = amount;
+        envelope.description = description;
+    } 
+
+    return envelope;
+}
+
+function deleteEnvelope(id) {
+    console.log(`id to delete: ${id}`);
+    console.log(getEnvelopeById(id));
+    console.log(getEnvelopeById(id).id);
+    // const index = envelopes.indexOf((e) => e.id === id); 
+    const index = envelopes.findIndex(e => e.id == id);
+    console.log(index);
+    if (index === -1) {
+        return false;
+    }
+
+    envelopes.splice(index, 1);
+    return true;
+}
+
+module.exports = { getEnvelopes, addEnvelope, getEnvelopeById, updateEnvelope, deleteEnvelope };

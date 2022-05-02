@@ -12,13 +12,30 @@ envelopeRouter.get('/', (req, res) => {
     res.send(envelopeManager.getEnvelopes());
 });
 
-envelopeRouter.get('/:id', (req, res) => {
-    let envelope = envelopeManager.getEnvelopeById(req.params.id);
+envelopeRouter.param('id', (req, res, next, id) => {
+    let envelope = envelopeManager.getEnvelopeById(id);
     if (envelope) {
-        res.send(envelope);
+        req.envelope = envelope;
+        next();
     } else {
         res.status(404).send();
     }
+});
+
+envelopeRouter.get('/:id', (req, res) => {
+    res.send(req.envelope);
+});
+
+envelopeRouter.put('/:id', (req, res) => {
+    let {name, amount, description} = req.body;
+    let id = req.params.id;
+    let newEnvelope = envelopeManager.updateEnvelope(id, name, amount, description);
+    res.send(newEnvelope);
+});
+
+envelopeRouter.delete('/:id', (req, res) => {
+    envelopeManager.deleteEnvelope(req.params.id);
+    res.status(204).send();
 });
 
 
