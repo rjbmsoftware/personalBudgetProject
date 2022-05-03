@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const envelopeRouter = require('./server/routes/envelope_routes');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
+
 app.use('/envelopes', envelopeRouter);
 
 const PORT = process.env.PORT || 4001;

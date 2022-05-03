@@ -43,7 +43,6 @@ function updateEnvelope(id, name, amount, description) {
 
 function deleteEnvelope(id) { 
     const index = envelopes.findIndex(e => e.id == id);
-    console.log(index);
     if (index === -1) {
         return false;
     }
